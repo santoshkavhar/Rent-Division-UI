@@ -14,3 +14,19 @@
     width: 100%; /* Set a width for the submit button */
   }
   
+  .api-response-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .api-response-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .arrow {
+    margin: 0 10px;
+    font-size: 18px;
+    color: #555;
+  }
