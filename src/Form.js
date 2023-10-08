@@ -6,9 +6,9 @@ function Form() {
   const [formData, setFormData] = useState({
     renters: 1,
     rooms: 1,
+    tableData: [], // Initialize an empty array to hold table data
   });
 
-  const [tableData, setTableData] = useState(null);
   const [showTable, setShowTable] = useState(false);
 
   const handleChange = (e) => {
@@ -28,37 +28,26 @@ function Form() {
     for (let i = 0; i < rows; i++) {
       const row = [];
       for (let j = 0; j < columns; j++) {
-        row.push(
-          <TableCell key={j}>
-            <TextField
-              type="number"
-              inputProps={{ min: 0, step: 1 }}
-              style={{ width: '100px' }}
-            />
-          </TableCell>
-        );
+        row.push(0); // Initialize each cell with 0 (or any default value)
       }
-      table.push(<TableRow key={i}>{row}</TableRow>);
+      table.push(row);
     }
 
-    setTableData(table);
+    setFormData({ ...formData, tableData: table }); // Update formData with tableData
     setShowTable(true);
   };
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const url = 'https://jsonplaceholder.typicode.com/posts';
-      const dataToSend = { formData, tableData }; // Include both formData and tableData
       const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(dataToSend),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
@@ -95,14 +84,14 @@ function Form() {
             inputProps={{ min: 0, step: 1 }}
           />
           <Button variant="contained" color="primary" onClick={generateTable}>
-            Generate Table
+            Generate Preference Table
           </Button>
         </Stack>
       </form>
 
       {showTable && (
         <>
-          <h3>Generated Table</h3>
+          <h3>Preference Table</h3>
           <Table>
             <TableHead>
               <TableRow>
@@ -112,7 +101,25 @@ function Form() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {tableData}
+              {formData.tableData.map((row, rowIndex) => (
+                <TableRow key={rowIndex}>
+                  {row.map((cell, cellIndex) => (
+                    <TableCell key={cellIndex}>
+                      <TextField
+                        type="number"
+                        value={cell}
+                        onChange={(e) => {
+                          const updatedTableData = [...formData.tableData];
+                          updatedTableData[rowIndex][cellIndex] = parseInt(e.target.value, 10) || 0;
+                          setFormData({ ...formData, tableData: updatedTableData });
+                        }}
+                        inputProps={{ min: 0, step: 1 }}
+                        style={{ width: '100px' }}
+                      />
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
           <Button variant="contained" color="primary" onClick={handleSubmit}>
