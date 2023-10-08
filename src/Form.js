@@ -95,6 +95,7 @@ function Form() {
           <Table>
             <TableHead>
               <TableRow>
+                <TableCell> Room/Renter </TableCell>
                 {Array.from(Array(formData.renters)).map((_, index) => (
                   <TableCell key={index}>Renter {index + 1}</TableCell>
                 ))}
@@ -103,6 +104,9 @@ function Form() {
             <TableBody>
               {formData.tableData.map((row, rowIndex) => (
                 <TableRow key={rowIndex}>
+                  <TableCell component="th" scope="row">
+                    Room {rowIndex + 1}
+                  </TableCell>
                   {row.map((cell, cellIndex) => (
                     <TableCell key={cellIndex}>
                       <TextField
