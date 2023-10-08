@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Stack, TextField, Button, Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
 import './Form.css'; // Import the CSS file for styling
 
@@ -6,10 +6,11 @@ function Form() {
   const [formData, setFormData] = useState({
     renters: 1,
     rooms: 1,
-    tableData: [], // Initialize an empty array to hold table data
+    tableData: [],
   });
 
   const [showTable, setShowTable] = useState(false);
+  const [apiResponse, setApiResponse] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,12 +29,12 @@ function Form() {
     for (let i = 0; i < rows; i++) {
       const row = [];
       for (let j = 0; j < columns; j++) {
-        row.push(0); // Initialize each cell with 0 (or any default value)
+        row.push(0);
       }
       table.push(row);
     }
 
-    setFormData({ ...formData, tableData: table }); // Update formData with tableData
+    setFormData({ ...formData, tableData: table });
     setShowTable(true);
   };
 
@@ -41,7 +42,7 @@ function Form() {
     e.preventDefault();
 
     try {
-      const url = 'https://jsonplaceholder.typicode.com/posts';
+      const url = 'http://localhost:5000/api';
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -52,6 +53,8 @@ function Form() {
 
       if (response.ok) {
         console.log('Data sent successfully!');
+        const jsonResponse = await response.json();
+        setApiResponse(jsonResponse);
       } else {
         console.error('Failed to send data.');
       }
@@ -95,7 +98,7 @@ function Form() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell> Room/Renter </TableCell>
+              <TableCell> Room/Renter </TableCell>
                 {Array.from(Array(formData.renters)).map((_, index) => (
                   <TableCell key={index}>Renter {index + 1}</TableCell>
                 ))}
@@ -105,7 +108,7 @@ function Form() {
               {formData.tableData.map((row, rowIndex) => (
                 <TableRow key={rowIndex}>
                   <TableCell component="th" scope="row">
-                    Room {rowIndex + 1}
+                  Room {rowIndex + 1}
                   </TableCell>
                   {row.map((cell, cellIndex) => (
                     <TableCell key={cellIndex}>
@@ -131,6 +134,23 @@ function Form() {
           </Button>
         </>
       )}
+{apiResponse && (
+  <div>
+    {[...Array(apiResponse.rooms.length)].map((_, index) => (
+      <span key={index}>
+        {apiResponse.rooms[index]}
+        {' '}
+        {apiResponse.renters[index]}
+        {' '}
+        {apiResponse.rents[index]}
+        <br />
+      </span>
+    ))}
+  </div>
+)}
+
+
+
     </div>
   );
 }
