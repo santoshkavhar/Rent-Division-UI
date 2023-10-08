@@ -135,19 +135,19 @@ function Form() {
         </>
       )}
 {apiResponse && (
-  <div>
-    {[...Array(apiResponse.rooms.length)].map((_, index) => (
-      <span key={index}>
-        {apiResponse.rooms[index]}
-        {' '}
-        {apiResponse.renters[index]}
-        {' '}
-        {apiResponse.rents[index]}
-        <br />
-      </span>
+  <div className="api-response-container">
+    {apiResponse.rooms.map((room, index) => (
+      <div key={index} className="api-response-item">
+        <span>{room}</span>
+        <span className="arrow">→</span>
+        <span>{apiResponse.renters[index]}</span>
+        <span className="arrow">→</span>
+        <span>{apiResponse.rents[index]}</span>
+      </div>
     ))}
   </div>
 )}
+
 
 
 
