@@ -1,0 +1,16 @@
+.form-container {
+    max-width: 300px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the form */
+  }
+  
+  /* Style the text inputs */
+  .MuiTextField-root {
+    width: 100%; /* Set a width for the text inputs */
+    margin-bottom: 10px; /* Add some spacing between the inputs */
+  }
+  
+  /* Style the submit button */
+  .MuiButton-root {
+    width: 100%; /* Set a width for the submit button */
+  }
+  
