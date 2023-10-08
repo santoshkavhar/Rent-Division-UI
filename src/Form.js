@@ -136,17 +136,27 @@ function Form() {
       )}
 {apiResponse && (
   <div className="api-response-container">
-    {apiResponse.rooms.map((room, index) => (
-      <div key={index} className="api-response-item">
-        <span>{room}</span>
-        <span className="arrow">→</span>
-        <span>{apiResponse.renters[index]}</span>
-        <span className="arrow">→</span>
-        <span>{apiResponse.rents[index]}</span>
-      </div>
-    ))}
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>Rooms</TableCell>
+          <TableCell>Renters</TableCell>
+          <TableCell>Rents</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {apiResponse.rooms.map((room, index) => (
+          <TableRow key={index}>
+            <TableCell>{room}</TableCell>
+            <TableCell>{apiResponse.renters[index]}</TableCell>
+            <TableCell>{apiResponse.rents[index]}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   </div>
 )}
+
 
 
 
