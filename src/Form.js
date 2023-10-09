@@ -6,7 +6,7 @@ function Form() {
   const [formData, setFormData] = useState({
     renters: 1,
     rooms: 1,
-    tableData: [],
+    rentData: [],
   });
 
   const [showTable, setShowTable] = useState(false);
@@ -34,7 +34,7 @@ function Form() {
       table.push(row);
     }
 
-    setFormData({ ...formData, tableData: table });
+    setFormData({ ...formData, rentData: table });
     setShowTable(true);
   };
 
@@ -98,17 +98,17 @@ function Form() {
           <Table>
             <TableHead>
               <TableRow>
-              <TableCell> Room/Renter </TableCell>
-                {Array.from(Array(formData.renters)).map((_, index) => (
-                  <TableCell key={index}>Renter {index + 1}</TableCell>
+              <TableCell> Renter/Room </TableCell>
+                {Array.from(Array(formData.rooms)).map((_, index) => (
+                  <TableCell key={index}>Room {index + 1}</TableCell>
                 ))}
               </TableRow>
             </TableHead>
             <TableBody>
-              {formData.tableData.map((row, rowIndex) => (
+              {formData.rentData.map((row, rowIndex) => (
                 <TableRow key={rowIndex}>
                   <TableCell component="th" scope="row">
-                  Room {rowIndex + 1}
+                  Renter {rowIndex + 1}
                   </TableCell>
                   {row.map((cell, cellIndex) => (
                     <TableCell key={cellIndex}>
@@ -116,9 +116,9 @@ function Form() {
                         type="number"
                         value={cell}
                         onChange={(e) => {
-                          const updatedTableData = [...formData.tableData];
-                          updatedTableData[rowIndex][cellIndex] = parseInt(e.target.value, 10) || 0;
-                          setFormData({ ...formData, tableData: updatedTableData });
+                          const updatedRentData = [...formData.rentData];
+                          updatedRentData[rowIndex][cellIndex] = parseInt(e.target.value, 10) || 0;
+                          setFormData({ ...formData, rentData: updatedRentData });
                         }}
                         inputProps={{ min: 0, step: 1 }}
                         style={{ width: '100px' }}
@@ -130,7 +130,7 @@ function Form() {
             </TableBody>
           </Table>
           <Button variant="contained" color="primary" onClick={handleSubmit}>
-            Submit Table Data
+            Submit Rent Data
           </Button>
         </>
       )}
@@ -139,9 +139,9 @@ function Form() {
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell>Rooms</TableCell>
-          <TableCell>Renters</TableCell>
-          <TableCell>Rents</TableCell>
+          <TableCell>Room</TableCell>
+          <TableCell>Renter</TableCell>
+          <TableCell>Rent</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
