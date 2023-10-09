@@ -98,7 +98,7 @@ function Form() {
           <Table>
             <TableHead>
               <TableRow>
-              <TableCell> Renter/Room </TableCell>
+                <TableCell> Renter/Room </TableCell>
                 {Array.from(Array(formData.rooms)).map((_, index) => (
                   <TableCell key={index}>Room {index + 1}</TableCell>
                 ))}
@@ -108,7 +108,7 @@ function Form() {
               {formData.rentData.map((row, rowIndex) => (
                 <TableRow key={rowIndex}>
                   <TableCell component="th" scope="row">
-                  Renter {rowIndex + 1}
+                    Renter {rowIndex + 1}
                   </TableCell>
                   {row.map((cell, cellIndex) => (
                     <TableCell key={cellIndex}>
@@ -134,33 +134,28 @@ function Form() {
           </Button>
         </>
       )}
-{apiResponse && (
-  <div className="api-response-container">
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>Room</TableCell>
-          <TableCell>Renter</TableCell>
-          <TableCell>Rent</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {apiResponse.rooms.map((room, index) => (
-          <TableRow key={index}>
-            <TableCell>{room}</TableCell>
-            <TableCell>{apiResponse.renters[index]}</TableCell>
-            <TableCell>{apiResponse.rents[index]}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  </div>
-)}
-
-
-
-
-
+      {apiResponse && (
+        <div className="api-response-container">
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Renter</TableCell>
+                <TableCell>Room</TableCell>
+                <TableCell>Rent</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {apiResponse.renters.map((renter, index) => (
+                <TableRow key={index}>
+                  <TableCell>{renter}</TableCell>
+                  <TableCell>{apiResponse.rooms[index]}</TableCell>
+                  <TableCell>{apiResponse.rents[index]}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      )}
     </div>
   );
 }
