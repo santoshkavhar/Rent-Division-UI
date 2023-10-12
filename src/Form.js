@@ -145,7 +145,7 @@ function Form() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {apiResponse.renters.map((renter, index) => (
+              {apiResponse.renters?.map((renter, index) => (
                 <TableRow key={index}>
                   <TableCell>{renter}</TableCell>
                   <TableCell>{apiResponse.rooms[index]}</TableCell>
