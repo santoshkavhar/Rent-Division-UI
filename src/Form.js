@@ -75,7 +75,7 @@ function Form() {
             type="number"
             value={formData.renters}
             onChange={handleChange}
-            inputProps={{ min: 0, step: 1 }}
+            inputProps={{ min: 1, step: 1 }}
           />
           <TextField
             label="Enter no. of Rooms"
@@ -84,7 +84,7 @@ function Form() {
             type="number"
             value={formData.rooms}
             onChange={handleChange}
-            inputProps={{ min: 0, step: 1 }}
+            inputProps={{ min: 1, step: 1 }}
           />
           <Button variant="contained" color="primary" onClick={generateTable}>
             Generate Preference Table
