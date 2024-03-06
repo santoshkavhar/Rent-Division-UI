@@ -6,6 +6,7 @@ function HostelForm() {
   const [formData, setFormData] = useState({
     renters: 1,
     floors: 1,
+    capacity: 1,
     rentData: [],
   });
 
@@ -69,6 +70,15 @@ function HostelForm() {
       <h2>Rent Division</h2>
       <form onSubmit={handleSubmit}>
         <Stack spacing={3.5}>
+        <TextField
+            label="Enter capacity of each floor"
+            id="capacity"
+            name="capacity"
+            type="number"
+            value={formData.capacity}
+            onChange={handleChange}
+            inputProps={{ min: 1, step: 1 }}
+          />
           <TextField
             label="Enter no. of Renters"
             id="renters"
@@ -76,7 +86,7 @@ function HostelForm() {
             type="number"
             value={formData.renters}
             onChange={handleChange}
-            inputProps={{ min: 0, step: 1 }}
+            inputProps={{ min: 1, step: 1 }}
           />
           <TextField
             label="Enter no. of Floors"
@@ -85,7 +95,7 @@ function HostelForm() {
             type="number"
             value={formData.floors}
             onChange={handleChange}
-            inputProps={{ min: 0, step: 1 }}
+            inputProps={{ min: 1, step: 1 }}
           />
           <Button variant="contained" color="primary" onClick={generateTable}>
             Generate Preference Tablee
