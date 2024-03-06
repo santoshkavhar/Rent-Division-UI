@@ -22,8 +22,8 @@ function Form() {
   };
 
   const generateTable = () => {
-    const rows = formData.rooms;
-    const columns = formData.renters;
+    const rows = formData.renters;
+    const columns = formData.rooms;
 
     const table = [];
     for (let i = 0; i < rows; i++) {
