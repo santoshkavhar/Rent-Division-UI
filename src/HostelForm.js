@@ -150,9 +150,9 @@ function HostelForm() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Floor</TableCell>
                 <TableCell>Renter</TableCell>
-                <TableCell>Rent</TableCell>
+                <TableCell>Floor</TableCell>
+                <TableCell>Rent</TableCell>            
               </TableRow>
             </TableHead>
             <TableBody>
