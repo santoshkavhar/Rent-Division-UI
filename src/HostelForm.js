@@ -43,7 +43,7 @@ function HostelForm() {
     e.preventDefault();
 
     try {
-      const url = 'http://localhost:5000/hostel_api';
+      const url = 'http://localhost:5000/rent';
       const response = await fetch(url, {
         method: 'POST',
         headers: {

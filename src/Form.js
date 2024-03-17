@@ -42,7 +42,7 @@ function Form() {
     e.preventDefault();
 
     try {
-      const url = 'http://localhost:5000/api';
+      const url = 'http://localhost:5000/rent';
       const response = await fetch(url, {
         method: 'POST',
         headers: {
