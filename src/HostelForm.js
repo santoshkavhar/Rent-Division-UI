@@ -6,7 +6,7 @@ function HostelForm() {
   const [formData, setFormData] = useState({
     renters: 1,
     floors: 1,
-    capacity: 1,
+    capacity: "",
     rentData: [],
   });
 
@@ -20,6 +20,11 @@ function HostelForm() {
     if (!isNaN(intValue) && intValue >= 0) {
       setFormData({ ...formData, [name]: intValue });
     }
+  };
+
+  const handleStringChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const generateTable = () => {
@@ -73,11 +78,9 @@ function HostelForm() {
         <TextField
             label="Enter capacity of each floor"
             id="capacity"
-            name="capacity"
-            type="number"
+            name="capacity" 
             value={formData.capacity}
-            onChange={handleChange}
-            inputProps={{ min: 1, step: 1 }}
+            onChange={handleStringChange}
           />
           <TextField
             label="Enter no. of Renters"
