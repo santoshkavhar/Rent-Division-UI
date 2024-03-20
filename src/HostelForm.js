@@ -6,6 +6,7 @@ function HostelForm() {
   const [formData, setFormData] = useState({
     renters: 1,
     floors: 1,
+    rent:1,
     capacity: "",
     rentData: [],
   });
@@ -97,6 +98,15 @@ function HostelForm() {
             name="floors"
             type="number"
             value={formData.floors}
+            onChange={handleChange}
+            inputProps={{ min: 1, step: 1 }}
+          />
+          <TextField
+            label="Enter total rent"
+            id="rent"
+            name="rent"
+            type="number"
+            value={formData.rent}
             onChange={handleChange}
             inputProps={{ min: 1, step: 1 }}
           />
