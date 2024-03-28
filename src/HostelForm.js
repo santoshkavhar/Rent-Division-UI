@@ -7,7 +7,6 @@ function HostelForm() {
     renters: 1,
     floors: 1,
     rent: 1,
-    capacity: "",
     rentData: [[]], // Initialize with an empty array for the hostelRent row
   });
 
@@ -33,6 +32,14 @@ function HostelForm() {
     const columns = formData.floors;
 
     const table = [];
+    // Add the capacity row
+    const capacityRow = Array(columns).fill("");
+    table.push(capacityRow);
+
+    // Add the floor names row
+    const floorNamesRow = Array.from(Array(columns), (_, index) => `Floor ${index + 1}`);
+    table.push(floorNamesRow);
+
     for (let i = 0; i < rows; i++) {
       const row = [];
       for (let j = 0; j < columns; j++) {
@@ -40,9 +47,6 @@ function HostelForm() {
       }
       table.push(row);
     }
-
-    // Add an empty row for hostelRent as the first row
-    table.unshift(Array(columns).fill(""));
 
     setFormData({ ...formData, rentData: table });
     setShowTable(true);
@@ -78,13 +82,6 @@ function HostelForm() {
       <h2>Rent Division</h2>
       <form onSubmit={handleSubmit}>
         <Stack spacing={3.5}>
-          <TextField
-            label="Enter capacity of each floor"
-            id="capacity"
-            name="capacity"
-            value={formData.capacity}
-            onChange={handleStringChange}
-          />
           <TextField
             label="Enter no. of Renters"
             id="renters"
@@ -134,7 +131,7 @@ function HostelForm() {
               {formData.rentData.map((row, rowIndex) => (
                 <TableRow key={rowIndex}>
                   <TableCell component="th" scope="row">
-                    {rowIndex === 0 ? "Floor Names" : `Renter ${rowIndex}`}
+                    {rowIndex === 0 ? "Capacity" : rowIndex === 1 ? "Floor Names" : `Renter ${rowIndex - 1}`}
                   </TableCell>
                   {row.map((cell, cellIndex) => (
                     <TableCell key={cellIndex}>
@@ -146,6 +143,7 @@ function HostelForm() {
                           setFormData({ ...formData, rentData: updatedRentData });
                         }}
                         style={{ width: '100px' }}
+                        inputProps={{ min: 1, step: 1, pattern: "[0-9]*", title: "Please enter a positive integer" }}
                       />
                     </TableCell>
                   ))}
