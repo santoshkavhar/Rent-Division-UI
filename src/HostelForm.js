@@ -6,9 +6,9 @@ function HostelForm() {
   const [formData, setFormData] = useState({
     renters: 1,
     floors: 1,
-    rent:1,
+    rent: 1,
     capacity: "",
-    rentData: [],
+    rentData: [[]], // Initialize with an empty array for the hostelRent row
   });
 
   const [showTable, setShowTable] = useState(false);
@@ -41,6 +41,9 @@ function HostelForm() {
       table.push(row);
     }
 
+    // Add an empty row for hostelRent as the first row
+    table.unshift(Array(columns).fill(""));
+
     setFormData({ ...formData, rentData: table });
     setShowTable(true);
   };
@@ -71,15 +74,14 @@ function HostelForm() {
   };
 
   return (
-    // TODO: Get capacity of each floor
     <div className="form-container">
       <h2>Rent Division</h2>
       <form onSubmit={handleSubmit}>
         <Stack spacing={3.5}>
-        <TextField
+          <TextField
             label="Enter capacity of each floor"
             id="capacity"
-            name="capacity" 
+            name="capacity"
             value={formData.capacity}
             onChange={handleStringChange}
           />
@@ -111,7 +113,7 @@ function HostelForm() {
             inputProps={{ min: 1, step: 1 }}
           />
           <Button variant="contained" color="primary" onClick={generateTable}>
-            Generate Preference Tablee
+            Generate Preference Table
           </Button>
         </Stack>
       </form>
@@ -132,19 +134,17 @@ function HostelForm() {
               {formData.rentData.map((row, rowIndex) => (
                 <TableRow key={rowIndex}>
                   <TableCell component="th" scope="row">
-                    Renter {rowIndex + 1}
+                    {rowIndex === 0 ? "Floor Names" : `Renter ${rowIndex}`}
                   </TableCell>
                   {row.map((cell, cellIndex) => (
                     <TableCell key={cellIndex}>
                       <TextField
-                        type="number"
                         value={cell}
                         onChange={(e) => {
                           const updatedRentData = [...formData.rentData];
-                          updatedRentData[rowIndex][cellIndex] = parseInt(e.target.value, 10) || 0;
+                          updatedRentData[rowIndex][cellIndex] = e.target.value;
                           setFormData({ ...formData, rentData: updatedRentData });
                         }}
-                        inputProps={{ min: 0, step: 1 }}
                         style={{ width: '100px' }}
                       />
                     </TableCell>
@@ -165,7 +165,7 @@ function HostelForm() {
               <TableRow>
                 <TableCell>Renter</TableCell>
                 <TableCell>Floor</TableCell>
-                <TableCell>Rent</TableCell>            
+                <TableCell>Rent</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
